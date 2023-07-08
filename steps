@@ -1,0 +1,2 @@
+1. Установить DRF: pip install djangorestframework
+2. Добавить в INSTALLED_APPS 'rest_framework'
