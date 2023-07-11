@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import NULLABLE
+from datetime import date
 
 
 class Course(models.Model):
@@ -7,9 +8,42 @@ class Course(models.Model):
     image = models.ImageField(upload_to='course', verbose_name='Превью (картинка)', **NULLABLE)
     description = models.TextField(verbose_name='Описание', **NULLABLE)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Курсы'
+
 class Lesson(models.Model):
-    name = models.CharField(max_length=255, unique=True, verbose_name='Название')
+    name = models.CharField(max_length=255, verbose_name='Название')
     description = models.TextField(verbose_name='Описание', **NULLABLE)
     image = models.ImageField(upload_to='lesson', verbose_name='Превью (картинка)', **NULLABLE)
     video_url = models.URLField(verbose_name='Ссылка на видео')
     course = models.ForeignKey('online_training.Course', on_delete=models.CASCADE, verbose_name='Курс')
+
+    def __str__(self):
+        return f"{self.course} - {self.name}"
+
+    class Meta:
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
+
+class Payment(models.Model):
+    PAID_METHOD = (
+        ('Сashless', 'Безналичный расчет'),
+        ('Cash', 'Наличными')
+    )
+
+    user = models.ForeignKey('user.User', default='', on_delete=models.SET_DEFAULT, verbose_name='Пользователь')
+    date = models.DateField(default=date.today, verbose_name='Дата платежа')
+    course = models.ForeignKey('online_training.Course', default='', on_delete=models.SET_DEFAULT, verbose_name='Оплаченный курс')
+    paid = models.FloatField(verbose_name='Cумма оплаты')
+    paid_method = models.CharField(max_length=20, verbose_name='Способ оплаты', choices=PAID_METHOD)
+
+    def __str__(self):
+        return f"{self.user} - {self.course} - {self.date}"
+
+    class Meta:
+        verbose_name='Платеж'
+        verbose_name_plural='Платежи'
