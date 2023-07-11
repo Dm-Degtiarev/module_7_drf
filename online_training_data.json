@@ -1,160 +1,159 @@
 [
-{
-    "model": "online_training.course",
-    "pk": 1000000,
-    "fields": {
-        "name": "Хороший курс!",
-        "image": "image.jpg",
-        "description": "111111"
-    }
-},
-{
-    "model": "online_training.course",
-    "pk": 1000001,
-    "fields": {
-        "name": "Отличный курс!",
-        "image": "image.jpg",
-        "description": "111111"
-    }
-},
-{
-    "model": "online_training.lesson",
-    "pk": 2000000,
-    "fields": {
-        "name": "Урок 1",
-        "description": "Урок 1",
-        "image": "image.jpg",
-        "video_url": "https://github.com",
-        "course": 1000000
-    }
-},
-{
-    "model": "online_training.lesson",
-    "pk": 2000001,
-    "fields": {
-        "name": "Урок 2",
-        "description": "Урок 2",
-        "image": "image.jpg",
-        "video_url": "https://github.com",
-        "course": 1000000
-    }
-},
-{
-    "model": "online_training.lesson",
-    "pk": 2000002,
-    "fields": {
-        "name": "Урок 3",
-        "description": "Урок 3",
-        "image": "image.jpg",
-        "video_url": "https://github.com",
-        "course": 1000000
-    }
-},
+    {
+        "model": "online_training.course",
+        "pk": 1000000,
+        "fields": {
+            "name": "Хороший курс!",
+            "image": "image.jpg",
+            "description": "111111"
+        }
+    },
+    {
+        "model": "online_training.course",
+        "pk": 1000001,
+        "fields": {
+            "name": "Отличный курс!",
+            "image": "image.jpg",
+            "description": "111111"
+        }
+    },
+    {
+        "model": "online_training.lesson",
+        "pk": 2000000,
+        "fields": {
+            "name": "Урок 1",
+            "description": "Урок 1",
+            "image": "image.jpg",
+            "video_url": "https://github.com",
+            "course": 1000000
+        }
+    },
+    {
+        "model": "online_training.lesson",
+        "pk": 2000001,
+        "fields": {
+            "name": "Урок 2",
+            "description": "Урок 2",
+            "image": "image.jpg",
+            "video_url": "https://github.com",
+            "course": 1000000
+        }
+    },
+    {
+        "model": "online_training.lesson",
+        "pk": 2000002,
+        "fields": {
+            "name": "Урок 3",
+            "description": "Урок 3",
+            "image": "image.jpg",
+            "video_url": "https://github.com",
+            "course": 1000000
+        }
+    },
 
-{
-    "model": "online_training.lesson",
-    "pk": 2000003,
-    "fields": {
-        "name": "Урок 1",
-        "description": "Урок 1",
-        "image": "image.jpg",
-        "video_url": "https://github.com",
-        "course": 1000001
-    }
-},
-{
-    "model": "online_training.lesson",
-    "pk": 2000004,
-    "fields": {
-        "name": "Урок 2",
-        "description": "Урок 2",
-        "image": "image.jpg",
-        "video_url": "https://github.com",
-        "course": 1000001
-    }
-},
-{
-    "model": "online_training.lesson",
-    "pk": 2000005,
-    "fields": {
-        "name": "Урок 3",
-        "description": "Урок 3",
-        "image": "image.jpg",
-        "video_url": "https://github.com",
-        "course": 1000001
-    }
-},
+    {
+        "model": "online_training.lesson",
+        "pk": 2000003,
+        "fields": {
+            "name": "Урок 1",
+            "description": "Урок 1",
+            "image": "image.jpg",
+            "video_url": "https://github.com",
+            "course": 1000001
+        }
+    },
+    {
+        "model": "online_training.lesson",
+        "pk": 2000004,
+        "fields": {
+            "name": "Урок 2",
+            "description": "Урок 2",
+            "image": "image.jpg",
+            "video_url": "https://github.com",
+            "course": 1000001
+        }
+    },
+    {
+        "model": "online_training.lesson",
+        "pk": 2000005,
+        "fields": {
+            "name": "Урок 3",
+            "description": "Урок 3",
+            "image": "image.jpg",
+            "video_url": "https://github.com",
+            "course": 1000001
+        }
+    },
+
+    {
+        "model": "online_training.payment",
+        "pk": 300000,
+        "fields": {
+            "user": 1,
+            "date": "2023-07-09",
+            "course": 1000000,
+            "paid": 25.0,
+            "paid_method": "Сashless"
+        }
+    },
 
 
-{
-    "model": "online_training.payment",
-    "pk": 300000,
-    "fields": {
-        "user": 1,
-        "date": "2023-07-11",
-        "course": 1000000,
-        "paid": 25.0,
-        "paid_method": "Сashless"
-    }
-},
+    {
+        "model": "online_training.payment",
+        "pk": 300001,
+        "fields": {
+            "user": 1,
+            "date": "2023-07-10",
+            "course": 1000000,
+            "paid": 2500.0,
+            "paid_method": "Сashless"
+        }
+    },
 
+     {
+        "model": "online_training.payment",
+        "pk": 300002,
+        "fields": {
+            "user": 1,
+            "date": "2023-07-11",
+            "course": 1000001,
+            "paid": 250.0,
+            "paid_method": "Сashless"
+        }
+    },
 
-{
-    "model": "online_training.payment",
-    "pk": 300001,
-    "fields": {
-        "user": 1,
-        "date": "2023-07-11",
-        "course": 1000000,
-        "paid": 2500.0,
-        "paid_method": "Сashless"
-    }
-},
+    {
+        "model": "online_training.payment",
+        "pk": 300003,
+        "fields": {
+            "user": 1,
+            "date": "2023-07-12",
+            "course": 1000001,
+            "paid": 2.0,
+            "paid_method": "Cash"
+        }
+    },
+     {
+        "model": "online_training.payment",
+        "pk": 300004,
+        "fields": {
+            "user": 1,
+            "date": "2023-07-13",
+            "course": 1000001,
+            "paid": 250.0,
+            "paid_method": "Cash"
+        }
+    },
 
- {
-    "model": "online_training.payment",
-    "pk": 300002,
-    "fields": {
-        "user": 1,
-        "date": "2023-07-11",
-        "course": 1000001,
-        "paid": 250.0,
-        "paid_method": "Сashless"
+    {
+        "model": "online_training.payment",
+        "pk": 300005,
+        "fields": {
+            "user": 1,
+            "date": "2023-07-14",
+            "course": 1000001,
+            "paid": 2.0,
+            "paid_method": "Сashless"
+        }
     }
-},
-
-{
-    "model": "online_training.payment",
-    "pk": 300003,
-    "fields": {
-        "user": 1,
-        "date": "2023-07-11",
-        "course": 1000001,
-        "paid": 2.0,
-        "paid_method": "Cash"
-    }
-},
- {
-    "model": "online_training.payment",
-    "pk": 300002,
-    "fields": {
-        "user": 1,
-        "date": "2023-07-11",
-        "course": 1000001,
-        "paid": 250.0,
-        "paid_method": "Cash"
-    }
-},
-
-{
-    "model": "online_training.payment",
-    "pk": 300003,
-    "fields": {
-        "user": 1,
-        "date": "2023-07-11",
-        "course": 1000001,
-        "paid": 2.0,
-        "paid_method": "Сashless"
-    }
-}
 ]
