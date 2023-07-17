@@ -5,11 +5,11 @@ from user.models import User
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'author')
 
 @admin.register(Course)
-class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'author')
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):

@@ -3,10 +3,14 @@ from rest_framework.routers import DefaultRouter
 from .views import CourseViewSet, LessonUpdateView, LessonDetailView, LessonDeleteView, LessonCreateView, LessonListView, PaymentViewSet
 
 
+# Course
 course_router = DefaultRouter()
 course_router.register(r'course', CourseViewSet, basename='course')
 course_router.register(r'course/delete', CourseViewSet, basename='course_delete')
+course_router.register(r'course/detail', CourseViewSet, basename='course_detail')
+course_router.register(r'course/update', CourseViewSet, basename='course_update')
 
+# payment
 payment_router = DefaultRouter()
 payment_router.register(r'payment', PaymentViewSet, basename='payment')
 
