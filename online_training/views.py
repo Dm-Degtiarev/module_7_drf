@@ -1,16 +1,26 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
+from rest_framework.permissions import IsAuthenticated
 from online_training.models import Course, Lesson, Payment
+from online_training.permissions import ModeratorPermission, OwnerPermission
 from online_training.serializers import CourseSerializer, LessonSerializer, PaymentSerializer
 
 
 # ViewSets
 class CourseViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, ModeratorPermission | OwnerPermission]
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.groups.filter(name='Модератор').exists():
+            return Course.objects.all()
+        return Course.objects.filter(author=user)
+
 class PaymentViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
 
@@ -20,21 +30,33 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
 # Generics
 class LessonListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated,  ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.groups.filter(name='Модератор').exists():
+            return Lesson.objects.all()
+        return Lesson.objects.filter(author=user)
+
+
 class LessonCreateView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated,  ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
 class LessonDeleteView(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated, ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
 class LessonDetailView(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated, OwnerPermission | ModeratorPermission]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
 class LessonUpdateView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated, ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
