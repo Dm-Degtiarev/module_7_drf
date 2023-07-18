@@ -19,6 +19,10 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Course.objects.all()
         return Course.objects.filter(author=user)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+
 class PaymentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = PaymentSerializer
