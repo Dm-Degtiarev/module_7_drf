@@ -40,6 +40,10 @@ class LessonListView(generics.ListCreateAPIView):
             return Lesson.objects.all()
         return Lesson.objects.filter(author=user)
 
+    def post(self, request, *args, **kwargs):
+        request.data["author"] = request.user.id
+        return self.create(request, *args, **kwargs)
+
 
 class LessonCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated,  ModeratorPermission | OwnerPermission]
