@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from online_training.models import Course, Lesson, Payment
+from online_training.validators import VideoUrlValidator
 
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
+        validators = [VideoUrlValidator(field='video_url')]
 
 class CourseSerializer(serializers.ModelSerializer):
     lesson_count = serializers.SerializerMethodField(read_only=True)
