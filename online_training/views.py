@@ -3,6 +3,7 @@ from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from online_training.models import Course, Lesson, Payment, Subscription
+from online_training.pagination import CoursePagination, LessonPagination
 from online_training.permissions import ModeratorPermission, OwnerPermission
 from online_training.serializers import CourseSerializer, LessonSerializer, PaymentSerializer, SubscriptionSerializer
 
@@ -11,6 +12,7 @@ from online_training.serializers import CourseSerializer, LessonSerializer, Paym
 class CourseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, ModeratorPermission | OwnerPermission]
     serializer_class = CourseSerializer
+    pagination_class = CoursePagination
     queryset = Course.objects.all()
 
     def get_queryset(self):
@@ -36,6 +38,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 class LessonListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated,  ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
+    pagination_class = LessonPagination
     queryset = Lesson.objects.all()
 
     def get_queryset(self):
