@@ -69,15 +69,20 @@ class LessonUpdateView(generics.UpdateAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
-class SubscriptionCreateView(generics.CreateAPIView):
+class SubscriptionListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = SubscriptionSerializer
     queryset = Subscription.objects.all()
-    permission_classes = [IsAuthenticated]
 
 class SubscriptionDetailView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = SubscriptionSerializer
     queryset = Subscription.objects.all()
+
+class SubscriptionCreateView(generics.CreateAPIView):
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+    permission_classes = [IsAuthenticated]
 
 class SubscriptionDeleteView(generics.DestroyAPIView):
     serializer_class = SubscriptionSerializer
