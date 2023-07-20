@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from online_training.models import Course, Lesson, Payment
+from online_training.models import Course, Lesson, Payment, Subscription
 from online_training.validators import VideoUrlValidator
 
 
@@ -23,5 +23,10 @@ class CourseSerializer(serializers.ModelSerializer):
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
+        fields = '__all__'
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
         fields = '__all__'
 
