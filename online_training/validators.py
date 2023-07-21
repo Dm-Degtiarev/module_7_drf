@@ -7,5 +7,5 @@ class VideoUrlValidator:
 
     def __call__(self, value):
         video_url = value.get('video_url')
-        if 'youtube.com' not in video_url:
-            raise serializers.ValidationError('the field must contain "youtube.com"')
+        if video_url and 'youtube.com' not in video_url:
+            raise serializers.ValidationError('URL должен быть с youtube.com')
