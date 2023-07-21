@@ -1,16 +1,18 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
-from rest_framework.permissions import IsAuthenticated
-from online_training.models import Course, Lesson, Payment
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from online_training.models import Course, Lesson, Payment, Subscription
+from online_training.pagination import CoursePagination, LessonPagination
 from online_training.permissions import ModeratorPermission, OwnerPermission
-from online_training.serializers import CourseSerializer, LessonSerializer, PaymentSerializer
+from online_training.serializers import CourseSerializer, LessonSerializer, PaymentSerializer, SubscriptionSerializer
 
 
 # ViewSets
 class CourseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, ModeratorPermission | OwnerPermission]
     serializer_class = CourseSerializer
+    pagination_class = CoursePagination
     queryset = Course.objects.all()
 
     def get_queryset(self):
@@ -36,6 +38,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 class LessonListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated,  ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
+    pagination_class = LessonPagination
     queryset = Lesson.objects.all()
 
     def get_queryset(self):
@@ -68,3 +71,28 @@ class LessonUpdateView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated, ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+
+class SubscriptionListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+
+class SubscriptionDetailView(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+
+class SubscriptionCreateView(generics.CreateAPIView):
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+    permission_classes = [IsAuthenticated]
+
+class SubscriptionDeleteView(generics.DestroyAPIView):
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+    permission_classes = [IsAuthenticated]
+
+class SubscriptionUpdateView(generics.UpdateAPIView):
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+    permission_classes = [IsAuthenticated]
