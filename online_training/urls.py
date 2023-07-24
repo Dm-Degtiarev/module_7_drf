@@ -7,9 +7,9 @@ from .views import CourseViewSet, LessonUpdateView, LessonDetailView, LessonDele
 # Course
 course_router = DefaultRouter()
 course_router.register(r'course', CourseViewSet, basename='course')
-course_router.register(r'course/delete', CourseViewSet, basename='course_delete')
-course_router.register(r'course/detail', CourseViewSet, basename='course_detail')
-course_router.register(r'course/update', CourseViewSet, basename='course_update')
+# course_router.register(r'course/delete', CourseViewSet, basename='course_delete')
+# course_router.register(r'course/detail', CourseViewSet, basename='course_detail')
+# course_router.register(r'course/update', CourseViewSet, basename='course_update')
 
 # payment
 payment_router = DefaultRouter()
