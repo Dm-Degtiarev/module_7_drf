@@ -13,13 +13,14 @@ class CourseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, ModeratorPermission | OwnerPermission]
     serializer_class = CourseSerializer
     pagination_class = CoursePagination
-    queryset = Course.objects.all()
 
     def get_queryset(self):
         user = self.request.user
-        if user.groups.filter(name='Модератор').exists():
-            return Course.objects.all()
-        return Course.objects.filter(author=user)
+        if user.is_authenticated:
+            if user.groups.filter(name='Модератор').exists():
+                return Course.objects.all()
+            return Course.objects.filter(author=user)
+        return Course.objects.none()
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -35,21 +36,16 @@ class PaymentViewSet(viewsets.ModelViewSet):
     ordering_fields = ['date']
 
 # Generics
-class LessonListView(generics.ListCreateAPIView):
+class LessonListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated,  ModeratorPermission | OwnerPermission]
     serializer_class = LessonSerializer
     pagination_class = LessonPagination
-    queryset = Lesson.objects.all()
 
     def get_queryset(self):
         user = self.request.user
         if user.groups.filter(name='Модератор').exists():
             return Lesson.objects.all()
         return Lesson.objects.filter(author=user)
-
-    def post(self, request, *args, **kwargs):
-        request.data["author"] = request.user.id
-        return self.create(request, *args, **kwargs)
 
 
 class LessonCreateView(generics.CreateAPIView):
