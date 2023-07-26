@@ -1,15 +1,16 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
+
+from .apps import OnlineTrainingConfig
 from .views import CourseViewSet, LessonUpdateView, LessonDetailView, LessonDeleteView, LessonCreateView, \
       LessonListView, PaymentViewSet, SubscriptionCreateView, SubscriptionDeleteView, SubscriptionUpdateView, \
-      SubscriptionDetailView, SubscriptionListView
+      SubscriptionDetailView, SubscriptionListView, PaymentIntentCreateView, PaymentMethodCreateView, PaymentConfirmView
+
+app_name = OnlineTrainingConfig.name
 
 # Course
 course_router = DefaultRouter()
 course_router.register(r'course', CourseViewSet, basename='course')
-# course_router.register(r'course/delete', CourseViewSet, basename='course_delete')
-# course_router.register(r'course/detail', CourseViewSet, basename='course_detail')
-# course_router.register(r'course/update', CourseViewSet, basename='course_update')
 
 # payment
 payment_router = DefaultRouter()
@@ -26,5 +27,8 @@ urlpatterns = [
       path('subscription/create/', SubscriptionCreateView.as_view(), name='subscription_create'),
       path('subscription/detail/<int:pk>/', SubscriptionDetailView.as_view(), name='subscription_detail'),
       path('subscription/delete/<int:pk>/', SubscriptionDeleteView.as_view(),name='subscription_delete'),
-      path('subscription/update/<int:pk>/', SubscriptionUpdateView.as_view(), name='subscription_update')
+      path('subscription/update/<int:pk>/', SubscriptionUpdateView.as_view(), name='subscription_update'),
+      path('payment/intent/create/', PaymentIntentCreateView.as_view(), name='payment_intent_create'),
+      path('payment/method/create/', PaymentMethodCreateView.as_view(), name='payment_method_create'),
+      path('payment/confirm/', PaymentConfirmView.as_view(), name='payment_method_create'),
 ] + course_router.urls + payment_router.urls

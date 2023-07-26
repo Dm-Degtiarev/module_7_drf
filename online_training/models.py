@@ -6,6 +6,7 @@ class Course(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='Название')
     image = models.ImageField(upload_to='course', verbose_name='Превью (картинка)', **NULLABLE)
     description = models.TextField(verbose_name='Описание', **NULLABLE)
+    amount = models.FloatField(verbose_name='Цена')
     author = models.ForeignKey("user.User", on_delete=models.SET_NULL, verbose_name='Автор', null=True)
 
     def __str__(self):
@@ -40,7 +41,10 @@ class Payment(models.Model):
     date = models.DateField(default=date.today, verbose_name='Дата платежа')
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='Оплаченный курс')
     paid = models.FloatField(verbose_name='Cумма оплаты')
-    paid_method = models.CharField(max_length=20, verbose_name='Способ оплаты', choices=PAID_METHOD)
+    paid_method = models.CharField(max_length=20, choices=PAID_METHOD, default='Сashless', verbose_name='Способ оплаты')
+    status = models.CharField(max_length=20, default='requires_payment_method', verbose_name='Статус')
+    intent_id = models.CharField(max_length=100, verbose_name='ID платежного намерения', **NULLABLE)
+    method_id = models.CharField(max_length=100, verbose_name='ID метода оплаты', **NULLABLE)
 
     def __str__(self):
         return f"{self.user} - {self.course} - {self.date}"

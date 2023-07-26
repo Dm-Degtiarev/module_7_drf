@@ -151,7 +151,9 @@ REST_FRAMEWORK = {
 
 # Настройки срока действия токенов
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=500),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
+
+PAYMENT_TOKEN = 'sk_test_51NXQ6PCyJ0mELxUtuFRXjvd6Fs2nrfRldlDUI8L3f5mgUd9kEFf2KEtsVImQEK0UFvis465W5olsFLMHPxFqcb0L00Y94DUPo8'
