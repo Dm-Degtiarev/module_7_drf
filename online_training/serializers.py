@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from online_training.models import Course, Lesson, Payment, Subscription
-from online_training.validators import VideoUrlValidator
+from online_training.validators import VideoUrlValidator, CourseValidator, PaymentIntentValidator
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -41,3 +41,34 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         model = Subscription
         fields = '__all__'
 
+class PaymentIntentCreateSerializer(serializers.Serializer):
+    course_id = serializers.IntegerField(validators=[CourseValidator(field='course_id')])
+
+class PaymentMethodCreateSerializer(serializers.Serializer):
+    intent_id = serializers.CharField(max_length=150, validators=[PaymentIntentValidator(field='intent_id')])
+    pay_token = serializers.CharField(max_length=1000)
+
+    def validate(self, value):
+        intent_id = value['intent_id']
+        payment = Payment.objects.get(intent_id=intent_id)
+        if payment is None:
+            raise serializers.ValidationError(f"intent_id {intent_id} not found")
+        if payment.status == 'succeeded':
+            raise serializers.ValidationError(f"intent_id {intent_id} is already confirmed")
+
+        return value
+
+class PaymentConfirmSerializer(serializers.Serializer):
+    intent_id = serializers.CharField(max_length=150, validators=[PaymentIntentValidator(field='intent_id')])
+
+    def validate(self, value):
+        intent_id = value['intent_id']
+        payment = Payment.objects.get(intent_id=intent_id)
+        if payment is None:
+            raise serializers.ValidationError(f"intent_id {intent_id} not found")
+        if payment.method_id is None:
+            raise serializers.ValidationError(f"intent_id {intent_id} does not have a payment method")
+        if payment.status == 'succeeded':
+            raise serializers.ValidationError(f"intent_id {intent_id} is already confirmed")
+
+        return value
