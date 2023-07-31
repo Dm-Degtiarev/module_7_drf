@@ -8,6 +8,7 @@ class Course(models.Model):
     description = models.TextField(verbose_name='Описание', **NULLABLE)
     amount = models.FloatField(verbose_name='Цена')
     author = models.ForeignKey("user.User", on_delete=models.SET_NULL, verbose_name='Автор', null=True)
+    last_update = models.DateTimeField(verbose_name='Дата последнего обновления', **NULLABLE)
 
     def __str__(self):
         return self.name

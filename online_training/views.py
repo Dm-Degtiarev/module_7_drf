@@ -11,6 +11,7 @@ from online_training.permissions import ModeratorPermission, OwnerPermission
 from online_training.serializers import CourseSerializer, LessonSerializer, PaymentSerializer, SubscriptionSerializer, \
     PaymentIntentCreateSerializer, PaymentMethodCreateSerializer, PaymentConfirmSerializer
 from online_training.services import StripePayment
+from .tasks import notify_course_updates
 
 
 # ViewSets
@@ -29,6 +30,10 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+    def perform_update(self, serializer):
+        self.object = serializer.save()
+        notify_course_updates.delay(self.object.pk)
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
