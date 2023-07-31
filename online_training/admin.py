@@ -1,5 +1,5 @@
 from django.contrib import admin
-from online_training.models import Lesson, Payment, Course
+from online_training.models import Lesson, Payment, Course, Subscription
 from user.models import User
 
 
@@ -20,5 +20,10 @@ class PaymentAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('email', 'first_name', 'last_name', 'avatar', 'phone_number', 'country')
+
+
+@admin.register(Subscription)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('course', 'user', 'status')
 
 
